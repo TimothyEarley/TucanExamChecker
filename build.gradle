@@ -1,0 +1,52 @@
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.1.1'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+sourceCompatibility = 1.8
+mainClassName = 'tucanChecker.MainKt'
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    runtime files('src/dist')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+	compile 'org.jsoup:jsoup:1.9.1'
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.7'
+
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-jackson:2.0.2'
+
+    compile 'org.slf4j:slf4j-api:1.7.22'
+    compile 'ch.qos.logback:logback-classic:1.1.8'
+
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.7'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+}
+
+shadowJar {
+  baseName = 'tucanChecker'
+  classifier = null
+  version = null
+}
