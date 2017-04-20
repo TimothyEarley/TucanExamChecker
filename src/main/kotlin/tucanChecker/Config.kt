@@ -19,6 +19,7 @@ object Config {
 
 	private val props = Properties().apply {
 		ClassLoader.getSystemClassLoader().getResourceAsStream(configfile).use {
+			if (it == null) throw FileNotFoundException("Could not load $configfile")
 			load(it)
 		}
 		logger.info("Config loaded")

@@ -4,8 +4,8 @@ Gather the exam results from [Tucan](https://www.tucan.tu-darmstadt.de) using a 
 [IFTTT](https://ifttt.com) notifications if a new one is added.
 
 ## Configuration
-The config file is in `src/dist/config.properties`, there you can set your Tucan
-username and account aswell as an IFTTT key.
+The config file is in `src/dist/lib/conf/config.properties`, there you can set your Tucan
+username and account as well as an IFTTT key.
 
 //TODO add information about other settings
 

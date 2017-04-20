@@ -9,14 +9,12 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
     }
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'groovy'
 apply plugin: 'application'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 sourceCompatibility = 1.8
 mainClassName = 'tucanChecker.MainKt'
@@ -28,8 +26,6 @@ repositories {
 }
 
 dependencies {
-    runtime files('src/dist')
-
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile 'org.jsoup:jsoup:1.9.1'
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.7'
@@ -45,8 +41,16 @@ dependencies {
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
 
-shadowJar {
-  baseName = 'tucanChecker'
-  classifier = null
-  version = null
+// workaround because adding the config file directly in dist and runtime results in a
+// wrong classpath, since 'lib' is added as a prefix
+
+// see http://stackoverflow.com/questions/30491345/how-do-i-specify-an-extra-folder-to-be-on-the-classpath-for-gradles-application
+// and https://issues.gradle.org/browse/GRADLE-2991
+
+run {
+    classpath += files('src/dist/lib/conf')
+}
+
+startScripts {
+    classpath += files('src/dist/lib/conf')
 }
