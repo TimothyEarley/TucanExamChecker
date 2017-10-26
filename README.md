@@ -13,5 +13,5 @@ username and account as well as an IFTTT key.
 
 Either run directly with `./gradlew run` or install the app with
 `./gradlew
-installShadowApp` which will create everything needed in
-`build/installShadow/TucanChecker` (`bin` has the executable).
+installDist` which will create everything needed in
+`build/install/TucanChecker` (`bin` has the executable).
