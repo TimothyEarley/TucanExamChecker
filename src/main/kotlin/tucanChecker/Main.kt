@@ -8,19 +8,17 @@ fun main(args: Array<String>) {
 
 	setLevel(Config.logLevel)
 
-	val connection = Connection(Config.Tucan.baseUrl, Config.Tucan.path)
-	val tucan = TucanAPI(connection)
+	TucanAPI().use { tucan ->
+		val examStore = ExamStore()
+		val ifttt = IFTTTMaker()
 
-	val examStore = ExamStore()
-	val ifttt = IFTTTMaker()
+		val exams = tucan.getExams()
+		examStore.update(exams).forEach {
+			ifttt.send(it)
+		}
 
-	val exams = tucan.getExams()
-	examStore.update(exams).forEach {
-		ifttt.send(it)
+		examStore.save()
 	}
-
-	examStore.save()
-
 }
 
 fun setLevel(level: Level) {

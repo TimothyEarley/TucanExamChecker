@@ -6,8 +6,8 @@ import okhttp3.Request
 import okhttp3.Response
 
 class Connection(
-		val host: String,
-		private val path: String
+		val host: String = Config.Tucan.baseUrl,
+		private val path: String = Config.Tucan.path
 ) {
 
 	private val client = OkHttpClient.Builder()
